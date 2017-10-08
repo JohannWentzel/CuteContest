@@ -154,6 +154,13 @@ class ViewController: UIViewController {
         })
     }
     
+    @IBAction func leftButton(_ sender: UIButton) {
+        didSwipeLeft()
+    }
+    @IBAction func rightButton(_ sender: Any) {
+        didSwipeRight()
+    }
+    
     
     
 

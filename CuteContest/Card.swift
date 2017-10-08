@@ -33,6 +33,13 @@ class Card: UIView{
         newCard.nameLabel.text = name
         newCard.ownerLabel.text = owner
         
+        newCard.layer.shadowColor = UIColor.black.cgColor
+        newCard.layer.shadowOpacity = 0.1
+        newCard.layer.shadowOffset = CGSize.zero
+        newCard.layer.shadowRadius = 10
+        
+        newCard.layer.shadowPath = UIBezierPath(rect: newCard.bounds).cgPath
+//        newCard.layer.shouldRasterize = true
         
         return newCard
     }
