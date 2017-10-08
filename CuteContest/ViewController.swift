@@ -92,8 +92,10 @@ class ViewController: UIViewController {
     }
     
     func populateDummyCardStack(){
+        
         for i in 0...4 {
-            let newCard = Card.instanceFromNib() as! Card
+            
+            let newCard = Card.instanceFromNib(name:"Card " + String(i), owner:"Subtitle " + String(i), image: #imageLiteral(resourceName: "ThumbsUp"))
             newCard.center = view.center
             cards.append(newCard)
             

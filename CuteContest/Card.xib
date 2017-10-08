@@ -52,6 +52,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="nameLabel" destination="MUG-LD-YkW" id="odZ-u7-dfJ"/>
+                <outlet property="ownerLabel" destination="2wO-E8-wW3" id="KB7-c7-FEO"/>
+                <outlet property="petImage" destination="PfW-39-f9H" id="fQk-5Z-Bqu"/>
                 <outlet property="thumbImageView" destination="eop-pU-ER2" id="neo-j4-vQL"/>
             </connections>
             <point key="canvasLocation" x="32" y="-87"/>
