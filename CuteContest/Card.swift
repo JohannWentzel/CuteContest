@@ -8,41 +8,44 @@
 
 import UIKit
 
-class Card: UIView{
+class Card: UIView {
 
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var petImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ownerLabel: UILabel!
     
-    var image : UIImage?
-    var name : String?
-    var owner : String?
-    
-    
+    var data : CardData?
     
     class func instanceFromNib(name: String, owner: String, image: UIImage) -> Card {
         
         let newCard = UINib(nibName: "Card", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! Card
-        
-        newCard.image = image
-        newCard.name = name
-        newCard.owner = owner
-        
-        newCard.petImage.image = image
-        newCard.nameLabel.text = name
-        newCard.ownerLabel.text = owner
-        
-        newCard.layer.shadowColor = UIColor.black.cgColor
-        newCard.layer.shadowOpacity = 0.1
-        newCard.layer.shadowOffset = CGSize.zero
-        newCard.layer.shadowRadius = 10
-        
-        newCard.layer.shadowPath = UIBezierPath(rect: newCard.bounds).cgPath
-//        newCard.layer.shouldRasterize = true
-        
+        newCard.data = CardData(image: image, name: name, owner: owner)
+        setCardUI(newCard)
         return newCard
     }
     
-
+    class func instanceFromNib(data: CardData) -> Card {
+        let newCard = UINib(nibName: "Card", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! Card
+        newCard.data = data
+        setCardUI(newCard)
+        return newCard
+    }
+    
+    private class func setCardUI(_ card: Card) {
+        
+        card.petImage.image = card.data?.image
+        card.nameLabel.text = card.data?.name
+        card.ownerLabel.text = card.data?.owner
+        
+        card.layer.borderWidth = 1
+        card.layer.borderColor = UIColor.darkGray.cgColor
+        
+        card.layer.shadowColor = UIColor.black.cgColor
+        card.layer.shadowOpacity = 0
+        card.layer.shadowOffset = CGSize.zero
+        card.layer.shadowRadius = 10
+        
+        card.layer.shadowPath = UIBezierPath(rect: card.bounds).cgPath
+    }
 }

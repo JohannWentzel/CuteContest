@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var LEFT_MARGIN : CGFloat = 0.0
     var RIGHT_MARGIN : CGFloat = 0.0
     var topCard : Card?
-    var cards : [Card] = [] 
+    var cards : [Card] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,7 @@ class ViewController: UIViewController {
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
         
-        populateDummyCardStack()
-//        assignTopCard()
+        populateCardStack()
         
         
         
@@ -39,7 +38,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func resetButton(_ sender: Any) {
-        populateDummyCardStack()
+        populateCardStack()
     }
     
     
@@ -70,36 +69,37 @@ class ViewController: UIViewController {
         
         
         
-        if sender.state == UIGestureRecognizerState.ended{
-            
+        if sender.state == UIGestureRecognizerState.ended {
             
             if self.topCard!.center.x < self.LEFT_MARGIN {
                 
-                didSwipeLeft()
-                
+                didSwipe(.left)
             }
             else if self.topCard!.center.x > self.RIGHT_MARGIN {
-                didSwipeRight()
-                
-                
-
+                didSwipe(.right)
             }
             else {
-                
                 resetCardPosition()
             }
         }
     }
     
-    func populateDummyCardStack(){
+    func populateCardStack(_ test: Bool? = nil) {
         
         for i in 0...4 {
             
-            let newCard = Card.instanceFromNib(name:"Card " + String(i), owner:"Subtitle " + String(i), image: #imageLiteral(resourceName: "ThumbsUp"))
-            newCard.center = view.center
+            let newCard = Card.instanceFromNib(name:"Card " + String(i), owner:"Subtitle " + String(i), image: #imageLiteral(resourceName: "daisy"))
+            newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
+            let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
+            newCard.transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)
+            
             cards.append(newCard)
+            self.view.addSubview(newCard)
+            self.view.sendSubview(toBack: newCard)
             
         }
+        
+        cards.last!.layer.shadowOpacity = 0.1
         
         assignTopCard()
         
@@ -112,38 +112,46 @@ class ViewController: UIViewController {
         if cards.count > 0 {
             topCard = cards[0]
             topCard!.addGestureRecognizer(panGestureRecognizer)
-            self.view.addSubview(topCard!)
-        }
-        else{
             
         }
-        
-        
-        
+
     }
     
-    
-    func didSwipeLeft(){
+    func didSwipe(_ direction: SwipeDirection)
+    {
+        if direction == .left {
+            if cards.count > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.topCard!.center = CGPoint(x: self.topCard!.center.x - 200, y: self.topCard!.center.y + 75)
+                    self.topCard!.alpha = 0
+                })
+                cards.remove(at: 0)
+                assignTopCard()
+            }
+        }
+        else if direction == .right {
+            if cards.count > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.topCard!.center = CGPoint(x: self.topCard!.center.x + 200, y: self.topCard!.center.y + 75)
+                    self.topCard!.alpha = 0
+                })
+                cards.remove(at: 0)
+                assignTopCard()
+            }
+        }
         
-        UIView.animate(withDuration: 0.3, animations: {
-            self.topCard!.center = CGPoint(x: self.topCard!.center.x - 200, y: self.topCard!.center.y + 75)
-            self.topCard!.alpha = 0
-        })
-        cards.remove(at: 0)
-        assignTopCard()
-        
+        moveCardStack()
     }
     
-    func didSwipeRight(){
-        UIView.animate(withDuration: 0.3, animations: {
-            self.topCard!.center = CGPoint(x: self.topCard!.center.x + 200, y: self.topCard!.center.y + 75)
-            self.topCard!.alpha = 0
-        })
-        cards.remove(at: 0)
-        assignTopCard()
+    func moveCardStack(){
+        for i in 0..<cards.count {
+            UIView.animate(withDuration: 0.1, animations: {
+                self.cards[i].center = CGPoint(x: Double(self.view.center.x), y: Double(self.view.center.y) - Double(i * 10))
+                let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
+                self.cards[i].transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)
+            })
+        }
     }
-    
-    
     
     func resetCardPosition(){
         UIView.animate(withDuration: 0.2, animations: {
@@ -155,10 +163,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func leftButton(_ sender: UIButton) {
-        didSwipeLeft()
+        didSwipe(.left)
     }
+    
     @IBAction func rightButton(_ sender: Any) {
-        didSwipeRight()
+        didSwipe(.right)
+    }
+    
+    enum SwipeDirection {
+        case left
+        case right
     }
     
     
