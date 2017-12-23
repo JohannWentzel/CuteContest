@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		021E5D5B1F86FB9F00F6DB01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021E5D5A1F86FB9F00F6DB01 /* AppDelegate.swift */; };
-		021E5D5D1F86FB9F00F6DB01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021E5D5C1F86FB9F00F6DB01 /* ViewController.swift */; };
+		021E5D5D1F86FB9F00F6DB01 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021E5D5C1F86FB9F00F6DB01 /* MainViewController.swift */; };
 		021E5D601F86FB9F00F6DB01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021E5D5E1F86FB9F00F6DB01 /* Main.storyboard */; };
 		021E5D631F86FB9F00F6DB01 /* CuteContest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 021E5D611F86FB9F00F6DB01 /* CuteContest.xcdatamodeld */; };
 		021E5D651F86FB9F00F6DB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 021E5D641F86FB9F00F6DB01 /* Assets.xcassets */; };
@@ -22,7 +22,7 @@
 /* Begin PBXFileReference section */
 		021E5D571F86FB9F00F6DB01 /* CuteContest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuteContest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		021E5D5A1F86FB9F00F6DB01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		021E5D5C1F86FB9F00F6DB01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		021E5D5C1F86FB9F00F6DB01 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		021E5D5F1F86FB9F00F6DB01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		021E5D621F86FB9F00F6DB01 /* CuteContest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CuteContest.xcdatamodel; sourceTree = "<group>"; };
 		021E5D641F86FB9F00F6DB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				021E5D5A1F86FB9F00F6DB01 /* AppDelegate.swift */,
-				021E5D5C1F86FB9F00F6DB01 /* ViewController.swift */,
+				021E5D5C1F86FB9F00F6DB01 /* MainViewController.swift */,
 				0294C1A91F8AC41B00520910 /* Card.swift */,
 				02CF69F11FEDE404002A169D /* CardData.swift */,
 				0294C1AB1F8AC79C00520910 /* Constants.swift */,
@@ -154,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0294C1AC1F8AC79C00520910 /* Constants.swift in Sources */,
-				021E5D5D1F86FB9F00F6DB01 /* ViewController.swift in Sources */,
+				021E5D5D1F86FB9F00F6DB01 /* MainViewController.swift in Sources */,
 				021E5D631F86FB9F00F6DB01 /* CuteContest.xcdatamodeld in Sources */,
 				02CF69F21FEDE404002A169D /* CardData.swift in Sources */,
 				021E5D5B1F86FB9F00F6DB01 /* AppDelegate.swift in Sources */,

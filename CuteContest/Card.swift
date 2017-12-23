@@ -14,6 +14,8 @@ class Card: UIView {
     @IBOutlet weak var petImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ownerLabel: UILabel!
+    @IBOutlet weak var textContainer: UIView!
+    @IBOutlet weak var textStackView: UIStackView!
     
     var data : CardData?
     
@@ -22,6 +24,7 @@ class Card: UIView {
         let newCard = UINib(nibName: "Card", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! Card
         newCard.data = CardData(image: image, name: name, owner: owner)
         setCardUI(newCard)
+        newCard.createGradientLayer()
         return newCard
     }
     
@@ -29,6 +32,8 @@ class Card: UIView {
         let newCard = UINib(nibName: "Card", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! Card
         newCard.data = data
         setCardUI(newCard)
+        newCard.createGradientLayer()
+        newCard.textContainer.bringSubview(toFront: newCard.textStackView)
         return newCard
     }
     
@@ -54,5 +59,14 @@ class Card: UIView {
         card.layer.shadowRadius = 10
         
         card.layer.shadowPath = UIBezierPath(rect: card.bounds).cgPath
+    }
+    
+    private func createGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.textContainer.bounds
+        gradientLayer.colors = [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(0.8).cgColor]
+        
+        self.textContainer.layer.addSublayer(gradientLayer)
     }
 }
