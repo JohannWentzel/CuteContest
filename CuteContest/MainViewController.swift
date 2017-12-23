@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainViewController: UIViewController {
 
@@ -47,7 +48,26 @@ class MainViewController: UIViewController {
         }
     }
     
-
+    @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+            let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
+            
+            UIView.transition(with: appDel.window!, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                appDel.window?.rootViewController = loginVC
+            }, completion: { completed in
+                // maybe do something here
+            })
+            
+            
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+    }
+    
     @IBAction func resetButton(_ sender: Any) {
         addDummyPets()
         populateStack()
