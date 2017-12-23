@@ -38,8 +38,15 @@ class Card: UIView {
         card.nameLabel.text = card.data?.name
         card.ownerLabel.text = card.data?.owner
         
+        card.petImage.layer.cornerRadius = 5
+        card.petImage.clipsToBounds = true
+        card.petImage.layer.borderWidth = 1
+        card.petImage.layer.borderColor = UIColor.darkGray.cgColor
+        
         card.layer.borderWidth = 1
         card.layer.borderColor = UIColor.darkGray.cgColor
+        card.layer.cornerRadius = 10
+        card.layer.masksToBounds = true
         
         card.layer.shadowColor = UIColor.black.cgColor
         card.layer.shadowOpacity = 0

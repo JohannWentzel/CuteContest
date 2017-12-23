@@ -11,12 +11,16 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
-    @IBOutlet weak var card: UIView!
     
     var LEFT_MARGIN : CGFloat = 0.0
     var RIGHT_MARGIN : CGFloat = 0.0
+    let MAX_CARD_DISPLAY: Int = 10
     var topCard : Card?
     var cards : [Card] = []
+    var cardDataArray : [CardData] = []
+    
+    @IBOutlet weak var swipeLeftButton: UIButton!
+    @IBOutlet weak var swipeRightButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,26 +29,33 @@ class ViewController: UIViewController {
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
         
-        populateCardStack()
+        addDummyPets()
         
-        
-        
-        
+        populateStack()
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func addDummyPets(){
+        for _ in 0 ..< 5 {
+            let newPet = CardData(image: #imageLiteral(resourceName: "daisy"), name: "Test Daisy", owner: "Johann")
+            cardDataArray.append(newPet)
+        }
+    }
+    
 
     @IBAction func resetButton(_ sender: Any) {
-        populateCardStack()
+        addDummyPets()
+        populateStack()
     }
     
     
-    
     @IBAction func didPan(_ sender: UIPanGestureRecognizer) {
-//        print("panned")
+    
         let translation = panGestureRecognizer.translation(in: self.view)
         panGestureRecognizer.view!.center = CGPoint(x: panGestureRecognizer.view!.center.x + translation.x, y: panGestureRecognizer.view!.center.y + translation.y)
         panGestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
@@ -84,25 +95,38 @@ class ViewController: UIViewController {
         }
     }
     
-    func populateCardStack(_ test: Bool? = nil) {
+
+    
+    
+    func populateStack() {
         
-        for i in 0...4 {
+        if (cardDataArray.count == 0){
+            swipeRightButton.isEnabled = false
+            swipeLeftButton.isEnabled = false
+            return
+        }
+        
+        swipeLeftButton.isEnabled = true
+        swipeRightButton.isEnabled = true
+        
+        for i in 0 ..< min(cardDataArray.count, MAX_CARD_DISPLAY) {
             
-            let newCard = Card.instanceFromNib(name:"Card " + String(i), owner:"Subtitle " + String(i), image: #imageLiteral(resourceName: "daisy"))
-            newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
-            let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
-            newCard.transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)
-            
-            cards.append(newCard)
-            self.view.addSubview(newCard)
-            self.view.sendSubview(toBack: newCard)
-            
+            if cards.filter({(c: Card) -> Bool in return c.data === cardDataArray[i]}).count == 0 {
+                let newCard = Card.instanceFromNib(data: cardDataArray[i])
+                newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
+                let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
+                newCard.transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)
+                
+                cards.append(newCard)
+                self.view.addSubview(newCard)
+                self.view.sendSubview(toBack: newCard)
+            }
         }
         
         cards.last!.layer.shadowOpacity = 0.1
         
         assignTopCard()
-        
+        moveCardStack()
         
         
     }
@@ -125,8 +149,7 @@ class ViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x - 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
-                cards.remove(at: 0)
-                assignTopCard()
+                
             }
         }
         else if direction == .right {
@@ -135,12 +158,13 @@ class ViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x + 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
-                cards.remove(at: 0)
-                assignTopCard()
             }
         }
+        cards.remove(at: 0)
+        cardDataArray.remove(at: 0)
+        assignTopCard()
         
-        moveCardStack()
+        populateStack()
     }
     
     func moveCardStack(){
