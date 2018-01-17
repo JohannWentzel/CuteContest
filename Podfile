@@ -8,6 +8,9 @@ target 'CuteContest' do
   # Pods for CuteContest
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'GoogleSignIn'
+  pod ‘IQKeyboardManagerSwift’
 
 end

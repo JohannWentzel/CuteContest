@@ -14,6 +14,9 @@
 		021E5D651F86FB9F00F6DB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 021E5D641F86FB9F00F6DB01 /* Assets.xcassets */; };
 		021E5D681F86FB9F00F6DB01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021E5D661F86FB9F00F6DB01 /* LaunchScreen.storyboard */; };
 		021E5D741F871FB500F6DB01 /* Card.xib in Resources */ = {isa = PBXBuildFile; fileRef = 021E5D731F871FB500F6DB01 /* Card.xib */; };
+		0236BD1E200F0EF2008AFBF8 /* CameraCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236BD1D200F0EF2008AFBF8 /* CameraCaptureViewController.swift */; };
+		0236BD20200F1BAB008AFBF8 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236BD1F200F1BAB008AFBF8 /* Networking.swift */; };
+		025A81021FEF372B001CD9C7 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A81011FEF372B001CD9C7 /* NewPostViewController.swift */; };
 		026A20B91FEECD9200A26F3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 026A20B81FEECD9200A26F3E /* GoogleService-Info.plist */; };
 		0280A2441FEED8F900486ED0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0280A2431FEED8F900486ED0 /* Login.storyboard */; };
 		0280A2461FEED90900486ED0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280A2451FEED90900486ED0 /* LoginViewController.swift */; };
@@ -34,6 +37,9 @@
 		021E5D671F86FB9F00F6DB01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		021E5D691F86FB9F00F6DB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		021E5D731F871FB500F6DB01 /* Card.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Card.xib; sourceTree = "<group>"; };
+		0236BD1D200F0EF2008AFBF8 /* CameraCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureViewController.swift; sourceTree = "<group>"; };
+		0236BD1F200F1BAB008AFBF8 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		025A81011FEF372B001CD9C7 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		026A20B81FEECD9200A26F3E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0280A2431FEED8F900486ED0 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		0280A2451FEED90900486ED0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +85,7 @@
 		021E5D591F86FB9F00F6DB01 /* CuteContest */ = {
 			isa = PBXGroup;
 			children = (
+				025A81011FEF372B001CD9C7 /* NewPostViewController.swift */,
 				021E5D5A1F86FB9F00F6DB01 /* AppDelegate.swift */,
 				0280A2491FEEDB0700486ED0 /* User.swift */,
 				0280A2431FEED8F900486ED0 /* Login.storyboard */,
@@ -89,6 +96,8 @@
 				0294C1AB1F8AC79C00520910 /* Constants.swift */,
 				021E5D731F871FB500F6DB01 /* Card.xib */,
 				021E5D5E1F86FB9F00F6DB01 /* Main.storyboard */,
+				0236BD1D200F0EF2008AFBF8 /* CameraCaptureViewController.swift */,
+				0236BD1F200F1BAB008AFBF8 /* Networking.swift */,
 				021E5D641F86FB9F00F6DB01 /* Assets.xcassets */,
 				021E5D661F86FB9F00F6DB01 /* LaunchScreen.storyboard */,
 				021E5D691F86FB9F00F6DB01 /* Info.plist */,
@@ -219,6 +228,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -226,6 +237,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,10 +272,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0280A2461FEED90900486ED0 /* LoginViewController.swift in Sources */,
+				0236BD20200F1BAB008AFBF8 /* Networking.swift in Sources */,
 				0294C1AC1F8AC79C00520910 /* Constants.swift in Sources */,
 				0280A24A1FEEDB0700486ED0 /* User.swift in Sources */,
 				021E5D5D1F86FB9F00F6DB01 /* MainViewController.swift in Sources */,
+				0236BD1E200F0EF2008AFBF8 /* CameraCaptureViewController.swift in Sources */,
 				021E5D631F86FB9F00F6DB01 /* CuteContest.xcdatamodeld in Sources */,
+				025A81021FEF372B001CD9C7 /* NewPostViewController.swift in Sources */,
 				02CF69F21FEDE404002A169D /* CardData.swift in Sources */,
 				021E5D5B1F86FB9F00F6DB01 /* AppDelegate.swift in Sources */,
 				0294C1AA1F8AC41B00520910 /* Card.swift in Sources */,

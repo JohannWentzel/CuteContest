@@ -219,7 +219,14 @@ class MainViewController: UIViewController {
         case right
     }
     
-    
+    @IBAction func unwindFromNewPost(sender: UIStoryboardSegue){
+        if sender.source is NewPostViewController {
+            let sourceVC = sender.source as! NewPostViewController
+            if sourceVC.selectedImage != nil {
+                Networking.sharedInstance?.uploadImage(sourceVC.selectedImage!, name: sourceVC.nameTextField.text!)
+            }
+        }
+    }
     
 
 }
