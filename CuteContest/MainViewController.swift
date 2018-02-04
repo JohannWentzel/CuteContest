@@ -13,6 +13,11 @@ class MainViewController: UIViewController {
 
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
+    enum SwipeDirection {
+        case left
+        case right
+    }
+    
     var LEFT_MARGIN : CGFloat = 0.0
     var RIGHT_MARGIN : CGFloat = 0.0
     let MAX_CARD_DISPLAY: Int = 10
@@ -25,13 +30,11 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
         
         addDummyPets()
-        
         populateStack()
 
     }
@@ -49,23 +52,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
-            let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
-            
-            UIView.transition(with: appDel.window!, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                appDel.window?.rootViewController = loginVC
-            }, completion: { completed in
-                // maybe do something here
-            })
-            
-            
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
+        Networking.sharedInstance?.logout()
     }
     
     @IBAction func resetButton(_ sender: Any) {
@@ -86,7 +73,8 @@ class MainViewController: UIViewController {
         
         topCard!.transform = CGAffineTransform(rotationAngle: panRatio * 0.4).scaledBy(x: scale, y: scale)
         
-        
+        topCard!.thumbImageView.alpha = abs(panRatio)
+      
         if xFromCenter > 0 {
             topCard!.thumbImageView.image = #imageLiteral(resourceName: "ThumbsUp")
             topCard!.thumbImageView.tintColor = UIColor.green
@@ -96,14 +84,9 @@ class MainViewController: UIViewController {
             topCard!.thumbImageView.tintColor = UIColor.red
         }
         
-        topCard!.thumbImageView.alpha = abs(panRatio)
-        
-        
-        
         if sender.state == UIGestureRecognizerState.ended {
             
             if self.topCard!.center.x < self.LEFT_MARGIN {
-                
                 didSwipe(.left)
             }
             else if self.topCard!.center.x > self.RIGHT_MARGIN {
@@ -130,8 +113,9 @@ class MainViewController: UIViewController {
         swipeRightButton.isEnabled = true
         
         for i in 0 ..< min(cardDataArray.count, MAX_CARD_DISPLAY) {
-            
+            // filter out duplicate data so we only generate new cards for new data
             if cards.filter({(c: Card) -> Bool in return c.data === cardDataArray[i]}).count == 0 {
+                // make new card, set its center so that it looks like a stack of cards
                 let newCard = Card.instanceFromNib(data: cardDataArray[i])
                 newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
                 let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
@@ -146,19 +130,14 @@ class MainViewController: UIViewController {
         cards.last!.layer.shadowOpacity = 0.1
         
         assignTopCard()
-        moveCardStack()
-        
-        
+        shiftStackForward()
     }
     
     func assignTopCard(){
-        
         if cards.count > 0 {
             topCard = cards[0]
             topCard!.addGestureRecognizer(panGestureRecognizer)
-            
         }
-
     }
     
     func didSwipe(_ direction: SwipeDirection)
@@ -187,7 +166,7 @@ class MainViewController: UIViewController {
         populateStack()
     }
     
-    func moveCardStack(){
+    func shiftStackForward(){
         for i in 0..<cards.count {
             UIView.animate(withDuration: 0.1, animations: {
                 self.cards[i].center = CGPoint(x: Double(self.view.center.x), y: Double(self.view.center.y) - Double(i * 10))
@@ -212,11 +191,6 @@ class MainViewController: UIViewController {
     
     @IBAction func rightButton(_ sender: Any) {
         didSwipe(.right)
-    }
-    
-    enum SwipeDirection {
-        case left
-        case right
     }
     
     @IBAction func unwindFromNewPost(sender: UIStoryboardSegue){

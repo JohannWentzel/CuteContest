@@ -20,7 +20,7 @@ class Networking {
         let imageData = UIImageJPEGRepresentation(image, 1.0)
         let ref = Networking.storageReference?.child("images/\(Auth.auth().currentUser!.uid)/\(name).jpeg")
         
-        let uploadTask = ref?.putData(imageData!, metadata: nil) { (metadata, error) in
+        let _ = ref?.putData(imageData!, metadata: nil) { (metadata, error) in
             guard let metadata = metadata else {
                 // Uh-oh, an error occurred!
                 return
@@ -28,6 +28,25 @@ class Networking {
             // Metadata contains file metadata such as size, content-type, and download URL.
             let downloadURL = metadata.downloadURL
             
+        }
+    }
+    
+    func logout() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+            let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
+            
+            UIView.transition(with: appDel.window!, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                appDel.window?.rootViewController = loginVC
+            }, completion: { completed in
+                // maybe do something here
+            })
+            
+            
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
         }
     }
     
