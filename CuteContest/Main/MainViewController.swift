@@ -69,8 +69,8 @@ class MainViewController: UIViewController {
         let xFromCenter = topCard!.center.x - view.center.x
         
         let panRatio = xFromCenter / view.center.x
-        let scale = min(150/abs(xFromCenter),1)
-        
+        let scale: CGFloat = 1.0 /*min(150/abs(xFromCenter),1)*/
+ 
         topCard!.transform = CGAffineTransform(rotationAngle: panRatio * 0.4).scaledBy(x: scale, y: scale)
         
         topCard!.thumbImageView.alpha = abs(panRatio)
@@ -197,7 +197,7 @@ class MainViewController: UIViewController {
         if sender.source is NewPostViewController {
             let sourceVC = sender.source as! NewPostViewController
             if sourceVC.selectedImage != nil {
-                Networking.sharedInstance?.uploadImage(sourceVC.selectedImage!, name: sourceVC.nameTextField.text!)
+                Networking.sharedInstance?.sendPost(sourceVC.selectedImage!, name: sourceVC.nameTextField.text!)
             }
         }
     }

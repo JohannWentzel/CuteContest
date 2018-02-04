@@ -7,8 +7,24 @@
 //
 
 import Foundation
+import FirebaseAuth
+
 class User {
-    static var isLoggedIn = false
-    static var name: String? = nil
+    static var isLoggedIn: Bool? {
+        get {
+            return Auth.auth().currentUser != nil
+        }
+    }
+    static var name: String? {
+        get {
+            return Auth.auth().currentUser?.displayName
+        }
+    }
+    
+    static var id: String? {
+        get {
+            return Auth.auth().currentUser?.uid
+        }
+    }
     
 }

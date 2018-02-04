@@ -30,12 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         Networking.databaseReference = Database.database().reference()
         Networking.storageReference = Storage.storage().reference()
         
-        if Auth.auth().currentUser != nil {
-            print("logged in")
-        }
-        else {
+        if Auth.auth().currentUser == nil {
             self.window?.rootViewController = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
-            
         }
 
         
@@ -45,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
         -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,                            sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+            return GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
         }
     
 
@@ -65,7 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 return
             }
             
-            User.isLoggedIn = true
+            Networking.sharedInstance?.setupUserIfNew()
+
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
             UIView.transition(with: self.window!, duration: 0.3, options: .transitionCrossDissolve, animations: {

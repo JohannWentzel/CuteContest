@@ -19,5 +19,6 @@ score
 users
     userID
         name
-        email
+        posts
+            postId
         totalScore
