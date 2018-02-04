@@ -22,8 +22,6 @@ class NewPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nameTextField.layer.borderColor = UIColor.black.cgColor
-        nameTextField.layer.cornerRadius = 5
         nameTextField.delegate = self
         nameTextField.addTarget(self, action: #selector(validate), for: .editingChanged)
         
