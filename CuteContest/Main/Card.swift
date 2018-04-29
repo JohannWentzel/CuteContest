@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorageUI
 
 class Card: UIView {
 
@@ -34,19 +35,29 @@ class Card: UIView {
         setCardUI(newCard)
         newCard.createGradientLayer()
         newCard.textContainer.bringSubview(toFront: newCard.textStackView)
+        var counter = 0
+        while newCard.petImage == nil {
+            counter += 1
+        }
+        print("Downloaded image after \(counter) cycles")
         return newCard
     }
     
     private class func setCardUI(_ card: Card) {
         
         card.petImage.image = card.data?.image
-        card.nameLabel.text = card.data?.name
-        card.ownerLabel.text = card.data?.owner
+        card.nameLabel.text = card.data?.petName
+        card.ownerLabel.text = card.data?.ownerId
         
         card.petImage.layer.cornerRadius = 5
         card.petImage.clipsToBounds = true
         card.petImage.layer.borderWidth = 1
         card.petImage.layer.borderColor = UIColor.darkGray.cgColor
+        
+        if card.data?.photoURL != nil {
+            print("downloading img with url: images/\(card.data?.ownerId ?? "")/\(card.data?.photoURL ?? "")")
+            card.petImage.sd_setImage(with: (Networking.sharedInstance?.storageReference?.child("images/\(card.data?.ownerId ?? "")/\(card.data?.photoURL ?? "")"))!)
+        }
         
         card.layer.borderWidth = 1
         card.layer.borderColor = UIColor.darkGray.cgColor

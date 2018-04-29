@@ -32,6 +32,9 @@ PODS:
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseUI/Storage (4.4.0):
+    - Firebase/Storage (~> 4.0)
+    - SDWebImage (~> 4.0)
   - GoogleSignIn (4.1.0):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -61,12 +64,16 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SDWebImage (4.1.1):
+    - SDWebImage/Core (= 4.1.1)
+  - SDWebImage/Core (4.1.1)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - FirebaseUI/Storage
   - GoogleSignIn
   - IQKeyboardManagerSwift
 
@@ -78,6 +85,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 607284a103e961d7f5863ee603cab5e85f443bd6
   FirebaseInstanceID: 70c2b877e9338971b2429ea5a4293df6961aa44e
   FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
+  FirebaseUI: 023eb0713ee36464d7afaeeae2dbefac6e897d5d
   GoogleSignIn: 8c599fc10d25b2af86a3f82fd9631e863f2b1400
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
@@ -85,7 +93,8 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SDWebImage: caf91ee75671c95eb7b3073cd90649d25f852a88
 
-PODFILE CHECKSUM: a5c474a046bf64c3099ad65494f0b4a53b0bb720
+PODFILE CHECKSUM: d9879169f19bedfb848becd42b8995cfa4b74d80
 
 COCOAPODS: 1.3.1

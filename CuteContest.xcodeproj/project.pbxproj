@@ -26,6 +26,7 @@
 		0280A24A1FEEDB0700486ED0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280A2491FEEDB0700486ED0 /* User.swift */; };
 		0294C1AA1F8AC41B00520910 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0294C1A91F8AC41B00520910 /* Card.swift */; };
 		0294C1AC1F8AC79C00520910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0294C1AB1F8AC79C00520910 /* Constants.swift */; };
+		02B954EB20952657008FCD6E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B954EA20952657008FCD6E /* Model.swift */; };
 		02CF69F21FEDE404002A169D /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CF69F11FEDE404002A169D /* CardData.swift */; };
 		4C63C15AC20D9737F6D68842 /* Pods_CuteContest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F694BDDB571C6C0FA6407F9 /* Pods_CuteContest.framework */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		0280A2491FEEDB0700486ED0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0294C1A91F8AC41B00520910 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		0294C1AB1F8AC79C00520910 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		02B954EA20952657008FCD6E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Model.swift; path = CuteContest/Utilities/Model.swift; sourceTree = SOURCE_ROOT; };
 		02CF69F11FEDE404002A169D /* CardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
 		8F694BDDB571C6C0FA6407F9 /* Pods_CuteContest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CuteContest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D9B7EE1459B7D5DCB9C97AF /* Pods-CuteContest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuteContest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CuteContest/Pods-CuteContest.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				021E5D5C1F86FB9F00F6DB01 /* MainViewController.swift */,
 				0294C1A91F8AC41B00520910 /* Card.swift */,
 				02CF69F11FEDE404002A169D /* CardData.swift */,
+				02B954EA20952657008FCD6E /* Model.swift */,
 				021E5D731F871FB500F6DB01 /* Card.xib */,
 				021E5D5E1F86FB9F00F6DB01 /* Main.storyboard */,
 			);
@@ -272,6 +275,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -281,6 +285,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -320,6 +325,7 @@
 				0280A24A1FEEDB0700486ED0 /* User.swift in Sources */,
 				021E5D5D1F86FB9F00F6DB01 /* MainViewController.swift in Sources */,
 				0236BD1E200F0EF2008AFBF8 /* CameraCaptureViewController.swift in Sources */,
+				02B954EB20952657008FCD6E /* Model.swift in Sources */,
 				02413DA22026BAB0002A5481 /* Utilities.swift in Sources */,
 				021E5D631F86FB9F00F6DB01 /* CuteContest.xcdatamodeld in Sources */,
 				025A81021FEF372B001CD9C7 /* NewPostViewController.swift in Sources */,

@@ -12,5 +12,6 @@ target 'CuteContest' do
   pod 'Firebase/Storage'
   pod 'GoogleSignIn'
   pod ‘IQKeyboardManagerSwift’
+  pod 'FirebaseUI/Storage'
 
 end

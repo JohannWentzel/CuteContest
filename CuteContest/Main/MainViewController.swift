@@ -12,6 +12,7 @@ import FirebaseAuth
 class MainViewController: UIViewController {
 
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    @IBOutlet weak var img: UIImageView!
     
     enum SwipeDirection {
         case left
@@ -34,8 +35,9 @@ class MainViewController: UIViewController {
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
         
-        addDummyPets()
-        populateStack()
+        Networking.sharedInstance?.delegate = self
+
+        Networking.sharedInstance?.getPosts()
 
     }
 
@@ -44,19 +46,13 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addDummyPets(){
-        for _ in 0 ..< 5 {
-            let newPet = CardData(image: #imageLiteral(resourceName: "daisy"), name: "Test Daisy", owner: "Johann")
-            cardDataArray.append(newPet)
-        }
-    }
     
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
         Networking.sharedInstance?.logout()
     }
     
     @IBAction func resetButton(_ sender: Any) {
-        addDummyPets()
+        Networking.sharedInstance?.getPosts()
         populateStack()
     }
     
@@ -103,7 +99,7 @@ class MainViewController: UIViewController {
     
     func populateStack() {
         
-        if (cardDataArray.count == 0){
+        if (Model.shared?.data.count == 0){
             swipeRightButton.isEnabled = false
             swipeLeftButton.isEnabled = false
             return
@@ -112,11 +108,11 @@ class MainViewController: UIViewController {
         swipeLeftButton.isEnabled = true
         swipeRightButton.isEnabled = true
         
-        for i in 0 ..< min(cardDataArray.count, MAX_CARD_DISPLAY) {
+        for i in 0 ..< min(Model.shared?.data.count ?? 0, MAX_CARD_DISPLAY) {
             // filter out duplicate data so we only generate new cards for new data
-            if cards.filter({(c: Card) -> Bool in return c.data === cardDataArray[i]}).count == 0 {
+            if cards.filter({(c: Card) -> Bool in return c.data === Model.shared?.data[i]}).count == 0 {
                 // make new card, set its center so that it looks like a stack of cards
-                let newCard = Card.instanceFromNib(data: cardDataArray[i])
+                let newCard = Card.instanceFromNib(data: (Model.shared?.data[i])!)
                 newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
                 let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
                 newCard.transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)
@@ -160,7 +156,7 @@ class MainViewController: UIViewController {
             }
         }
         cards.remove(at: 0)
-        cardDataArray.remove(at: 0)
+        Model.shared?.data.remove(at: 0)
         assignTopCard()
         
         populateStack()
@@ -203,5 +199,11 @@ class MainViewController: UIViewController {
     }
     
 
+}
+
+extension MainViewController : NetworkingDelegate {
+    func didLoadNewPosts() {
+        populateStack()
+    }
 }
 

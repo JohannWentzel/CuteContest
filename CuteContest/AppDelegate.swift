@@ -27,12 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().delegate = self
         
         Networking.sharedInstance = Networking()
-        Networking.databaseReference = Database.database().reference()
-        Networking.storageReference = Storage.storage().reference()
         
         if Auth.auth().currentUser == nil {
             self.window?.rootViewController = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
         }
+        
+        Model.shared = Model()
 
         
         return true

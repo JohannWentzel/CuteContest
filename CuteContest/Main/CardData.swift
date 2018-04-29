@@ -10,12 +10,23 @@ import UIKit
 
 class CardData: NSObject {
     var image: UIImage?
-    var name: String?
-    var owner: String?
+    var petName: String?
+    var ownerId: String?
+    var ownerName: String?
+    var timestamp: String?
+    var photoURL: String?
     
     init(image: UIImage, name: String, owner: String) {
         self.image = image
-        self.name = name
-        self.owner = owner
+        self.petName = name
+        self.ownerName = owner
+    }
+    
+    init(photoURL: String, petName: String, ownerName: String, ownerId: String, timestamp: String){
+        self.photoURL = photoURL
+        self.petName = petName
+        self.ownerId = ownerId
+        self.ownerName = ownerName
+        self.timestamp = timestamp
     }
 }
