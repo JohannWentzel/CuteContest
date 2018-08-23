@@ -47,7 +47,7 @@ class Card: UIView {
         
         card.petImage.image = card.data?.image
         card.nameLabel.text = card.data?.petName
-        card.ownerLabel.text = card.data?.ownerId
+        card.ownerLabel.text = card.data?.ownerName
         
         card.petImage.layer.cornerRadius = 5
         card.petImage.clipsToBounds = true

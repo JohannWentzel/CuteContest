@@ -9,6 +9,7 @@
 import UIKit
 
 class CardData: NSObject {
+    var postId: String?
     var image: UIImage?
     var petName: String?
     var ownerId: String?
@@ -22,7 +23,8 @@ class CardData: NSObject {
         self.ownerName = owner
     }
     
-    init(photoURL: String, petName: String, ownerName: String, ownerId: String, timestamp: String){
+    init(postId: String, photoURL: String, petName: String, ownerName: String, ownerId: String, timestamp: String){
+        self.postId = postId
         self.photoURL = photoURL
         self.petName = petName
         self.ownerId = ownerId

@@ -28,7 +28,38 @@ class Networking {
     }
     
     func incrementScore(postID: String, isPositive: Bool){
+        guard let ref = databaseReference?.child("score/\(postID)") else { return }
         
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var item = currentData.value as? [String : AnyObject] {
+                var totalScore = item["total"] as? Int ?? 0
+                var thumbsUp = item["thumbsUp"] as? Int ?? 0
+                var thumbsDown = item["thumbsDown"] as? Int ?? 0
+
+                if isPositive{
+                    thumbsUp += 1
+                }
+                else {
+                    thumbsDown += 1
+                }
+                
+                totalScore = thumbsUp - thumbsDown
+                
+                item["total"] = totalScore as AnyObject?
+                item["thumbsUp"] = thumbsUp as AnyObject?
+                item["thumbsDown"] = thumbsDown as AnyObject?
+                
+                // Set value and report transaction success
+                currentData.value = item
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func getPosts(){
@@ -36,8 +67,8 @@ class Networking {
         ref?.observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.value is NSNull { return }
             let result = snapshot.value as! NSDictionary
-            for userId in result.allKeys {
-                let info = result[userId] as? NSDictionary
+            for postId in result.allKeys {
+                let info = result[postId] as? NSDictionary
                 
                 let name = info!["name"] as? String ?? ""
                 let photoURL = info!["photoURL"] as? String ?? ""
@@ -45,7 +76,7 @@ class Networking {
                 let ownerName = info!["ownerName"] as? String ?? ""
                 let ownerId = info!["userId"] as? String ?? ""
 
-                let newCardData = CardData(photoURL: photoURL, petName: name, ownerName: ownerName, ownerId: ownerId, timestamp: timeStamp)
+                let newCardData = CardData(postId: postId as! String, photoURL: photoURL, petName: name, ownerName: ownerName, ownerId: ownerId, timestamp: timeStamp)
 
                 Model.shared?.data.append(newCardData)
             }

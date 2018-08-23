@@ -22,21 +22,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BA-kt-ZZ8">
-                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jet-gL-jND">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="jet-gL-jND">
+                                        <rect key="frame" x="50" y="0.0" width="275" height="100"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySA-9f-r3Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="100"/>
-                                                <state key="normal" title="Left"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySA-9f-r3Z">
+                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="100"/>
+                                                <state key="normal" title="Left" backgroundImage="downButton">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="leftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uZe-gl-1qO"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyG-T6-wl4">
-                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="100"/>
-                                                <state key="normal" title="Right"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyG-T6-wl4">
+                                                <rect key="frame" x="167.5" y="0.0" width="107.5" height="100"/>
+                                                <state key="normal" backgroundImage="upButton"/>
                                                 <connections>
                                                     <action selector="rightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TY6-KZ-37q"/>
                                                 </connections>
@@ -46,17 +48,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="jet-gL-jND" secondAttribute="trailing" id="URF-Gy-JI4"/>
-                                    <constraint firstAttribute="bottom" secondItem="jet-gL-jND" secondAttribute="bottom" id="fW2-fA-7aH"/>
-                                    <constraint firstItem="jet-gL-jND" firstAttribute="leading" secondItem="1BA-kt-ZZ8" secondAttribute="leading" id="p60-RR-CBJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jet-gL-jND" secondAttribute="trailing" constant="50" id="URF-Gy-JI4"/>
+                                    <constraint firstAttribute="bottom" secondItem="jet-gL-jND" secondAttribute="bottom" constant="20" id="fW2-fA-7aH"/>
+                                    <constraint firstItem="jet-gL-jND" firstAttribute="leading" secondItem="1BA-kt-ZZ8" secondAttribute="leading" constant="50" id="p60-RR-CBJ"/>
                                     <constraint firstItem="jet-gL-jND" firstAttribute="top" secondItem="1BA-kt-ZZ8" secondAttribute="top" id="wMB-q7-Va6"/>
-                                    <constraint firstAttribute="height" constant="100" id="wtK-r7-Joe"/>
+                                    <constraint firstAttribute="height" constant="120" id="wtK-r7-Joe"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-cm-Y6v">
-                                <rect key="frame" x="67" y="252" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90731163263320924" green="0.90731163263320924" blue="0.90731163263320924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -86,7 +84,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="img" destination="AMZ-cm-Y6v" id="z14-so-HUf"/>
                         <outlet property="panGestureRecognizer" destination="xas-Du-tIk" id="DyY-vA-aop"/>
                         <outlet property="swipeLeftButton" destination="ySA-9f-r3Z" id="Ego-Kn-KHV"/>
                         <outlet property="swipeRightButton" destination="iyG-T6-wl4" id="BXY-eK-aCw"/>
@@ -151,4 +148,8 @@
             <point key="canvasLocation" x="-234" y="870"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="downButton" width="150" height="150"/>
+        <image name="upButton" width="150" height="150"/>
+    </resources>
 </document>

@@ -12,7 +12,6 @@ import FirebaseAuth
 class MainViewController: UIViewController {
 
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
-    @IBOutlet weak var img: UIImageView!
     
     enum SwipeDirection {
         case left
@@ -31,6 +30,9 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        swipeRightButton.isEnabled = false
+        swipeLeftButton.isEnabled = false
         
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
@@ -144,7 +146,7 @@ class MainViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x - 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
-                
+                Networking.sharedInstance?.incrementScore(postID: (topCard?.data?.postId)!, isPositive: false)
             }
         }
         else if direction == .right {
@@ -153,6 +155,7 @@ class MainViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x + 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
+                Networking.sharedInstance?.incrementScore(postID: (topCard?.data?.postId)!, isPositive: true)
             }
         }
         cards.remove(at: 0)
