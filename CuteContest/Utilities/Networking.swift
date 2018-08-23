@@ -13,14 +13,18 @@ protocol NetworkingDelegate {
     func didLoadNewPosts()
 }
 
+protocol ProfileDataDelegate {
+    func didUpdateStats(posts: Int, totalScore: Int)
+}
+
 class Networking {
     
     static var sharedInstance: Networking?
     
     var databaseReference: DatabaseReference?
     var storageReference: StorageReference?
-    
     var delegate: NetworkingDelegate?
+    var profileDataDelegate: ProfileDataDelegate?
     
     init() {
         databaseReference = Database.database().reference()
@@ -204,6 +208,18 @@ class Networking {
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    func getProfileData(){
+        guard let userRef = databaseReference?.child("users/\(User.id!)") else { return }
+        userRef.observe(DataEventType.value, with: { (snapshot) in
+            let userInfoDict = snapshot.value as? [String : AnyObject] ?? [:]
+            let postNum = userInfoDict["posts"] as? Int ?? 0
+            let totalScore = userInfoDict["totalScore"] as? Int ?? 0
+            
+            self.profileDataDelegate?.didUpdateStats(posts: postNum, totalScore: totalScore)
+            // ...
+        })
     }
 
     

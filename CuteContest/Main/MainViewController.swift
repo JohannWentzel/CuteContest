@@ -30,16 +30,12 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var swipeLeftButton: UIButton!
     @IBOutlet weak var swipeRightButton: UIButton!
-    @IBOutlet weak var buttonContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        swipeRightButton.isEnabled = false
-        swipeLeftButton.isEnabled = false
-        
         MainViewController.computedWidth = UIScreen.main.bounds.width - 30
-        MainViewController.computedHeight = UIScreen.main.bounds.height - buttonContainerView.frame.size.height - 150
+        MainViewController.computedHeight = UIScreen.main.bounds.height - 350
         
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
@@ -47,6 +43,7 @@ class MainViewController: UIViewController {
         Networking.sharedInstance?.delegate = self
 
         Networking.sharedInstance?.getPosts()
+        
 
     }
 
@@ -55,10 +52,6 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        Networking.sharedInstance?.logout()
-    }
     
     @IBAction func resetButton(_ sender: Any) {
         Networking.sharedInstance?.getPosts()
@@ -109,13 +102,8 @@ class MainViewController: UIViewController {
     func populateStack() {
         
         if (Model.shared?.data.count == 0){
-            swipeRightButton.isEnabled = false
-            swipeLeftButton.isEnabled = false
             return
         }
-        
-        swipeLeftButton.isEnabled = true
-        swipeRightButton.isEnabled = true
         
         for i in 0 ..< min(Model.shared?.data.count ?? 0, MAX_CARD_DISPLAY) {
             // filter out duplicate data so we only generate new cards for new data
