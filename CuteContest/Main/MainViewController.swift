@@ -146,7 +146,7 @@ class MainViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x - 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
-                Networking.sharedInstance?.incrementScore(postID: (topCard?.data?.postId)!, isPositive: false)
+                Networking.sharedInstance?.incrementScore(data: (topCard?.data)!, isPositive: false)
             }
         }
         else if direction == .right {
@@ -155,7 +155,7 @@ class MainViewController: UIViewController {
                     self.topCard!.center = CGPoint(x: self.topCard!.center.x + 200, y: self.topCard!.center.y + 75)
                     self.topCard!.alpha = 0
                 })
-                Networking.sharedInstance?.incrementScore(postID: (topCard?.data?.postId)!, isPositive: true)
+                Networking.sharedInstance?.incrementScore(data: (topCard?.data)!, isPositive: true)
             }
         }
         cards.remove(at: 0)

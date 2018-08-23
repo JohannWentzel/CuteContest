@@ -27,22 +27,18 @@ class Networking {
         storageReference = Storage.storage().reference()
     }
     
-    func incrementScore(postID: String, isPositive: Bool){
-        guard let ref = databaseReference?.child("score/\(postID)") else { return }
+    func incrementScore(data: CardData, isPositive: Bool){
+        guard let scoreRef = databaseReference?.child("score/\(data.postId!)") else { return }
+        guard let userRef = databaseReference?.child("users/\(data.ownerId!)") else { return }
         
-        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+        scoreRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
             if var item = currentData.value as? [String : AnyObject] {
                 var totalScore = item["total"] as? Int ?? 0
                 var thumbsUp = item["thumbsUp"] as? Int ?? 0
                 var thumbsDown = item["thumbsDown"] as? Int ?? 0
-
-                if isPositive{
-                    thumbsUp += 1
-                }
-                else {
-                    thumbsDown += 1
-                }
                 
+                thumbsUp += isPositive ? 1 : 0
+                thumbsDown += isPositive ? 0 : 1
                 totalScore = thumbsUp - thumbsDown
                 
                 item["total"] = totalScore as AnyObject?
@@ -60,6 +56,25 @@ class Networking {
                 print(error.localizedDescription)
             }
         }
+        
+        userRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var item = currentData.value as? [String : AnyObject] {
+                var totalScore = item["totalScore"] as? Int ?? 0
+                totalScore += isPositive ? 1 : -1
+                item["totalScore"] = totalScore as? AnyObject
+                
+                // Set value and report transaction success
+                currentData.value = item
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     func getPosts(){
@@ -103,6 +118,7 @@ class Networking {
         let storageRef = storageReference?.child("images/\(User.id!)/\(filename)")
         let postsRef = databaseReference?.child("posts").child(postId)
         let scoreRef = databaseReference?.child("score").child(postId)
+        let userRef = databaseReference?.child("users/\(User.id!)")
         
         
         
@@ -128,8 +144,25 @@ class Networking {
                 "thumbsDown": 0,
                 "total": 0
                 ])
-
         }
+        
+        userRef?.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var item = currentData.value as? [String : AnyObject] {
+                var posts = item["posts"] as? Int ?? 0
+                posts += 1
+                item["posts"] = posts as AnyObject?
+                // Set value and report transaction success
+                currentData.value = item
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     func logout() {
@@ -172,9 +205,6 @@ class Networking {
             print(error.localizedDescription)
         }
     }
-    
-    func getPhoto(){
-        
-    }
+
     
 }
