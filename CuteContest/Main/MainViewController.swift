@@ -18,6 +18,9 @@ class MainViewController: UIViewController {
         case right
     }
     
+    static var computedWidth: CGFloat?
+    static var computedHeight: CGFloat?
+    
     var LEFT_MARGIN : CGFloat = 0.0
     var RIGHT_MARGIN : CGFloat = 0.0
     let MAX_CARD_DISPLAY: Int = 10
@@ -27,12 +30,16 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var swipeLeftButton: UIButton!
     @IBOutlet weak var swipeRightButton: UIButton!
+    @IBOutlet weak var buttonContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         swipeRightButton.isEnabled = false
         swipeLeftButton.isEnabled = false
+        
+        MainViewController.computedWidth = UIScreen.main.bounds.width - 30
+        MainViewController.computedHeight = UIScreen.main.bounds.height - buttonContainerView.frame.size.height - 150
         
         LEFT_MARGIN = 75
         RIGHT_MARGIN = view.frame.width - 75
@@ -115,6 +122,9 @@ class MainViewController: UIViewController {
             if cards.filter({(c: Card) -> Bool in return c.data === Model.shared?.data[i]}).count == 0 {
                 // make new card, set its center so that it looks like a stack of cards
                 let newCard = Card.instanceFromNib(data: (Model.shared?.data[i])!)
+                newCard.frame.size.width = MainViewController.computedWidth!
+                newCard.frame.size.height = MainViewController.computedHeight!
+                
                 newCard.center = CGPoint(x: Double(view.center.x), y: Double(view.center.y) - Double(i * 10))
                 let scaleMultiplier = CGFloat(1 - (Double(i) * 0.02))
                 newCard.transform = CGAffineTransform(scaleX: scaleMultiplier, y: scaleMultiplier)

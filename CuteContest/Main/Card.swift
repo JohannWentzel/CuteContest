@@ -73,11 +73,8 @@ class Card: UIView {
     }
     
     private func createGradientLayer() {
-        let gradientLayer = CAGradientLayer()
+        let gradientView = GradientView(frame: textContainer.bounds)
         
-        gradientLayer.frame = self.textContainer.bounds
-        gradientLayer.colors = [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(0.8).cgColor]
-        
-        self.textContainer.layer.addSublayer(gradientLayer)
+        self.textContainer.addSubview(gradientView)
     }
 }
